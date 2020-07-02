@@ -41,6 +41,7 @@ export default class Login extends Component{
 				M.toast({html: 'Signin Successfully',classes:"#388e3c green darken-2"});
 				this.props.change();
 				localStorage.setItem("jwt",data.token);
+				console.log(data.user);
 				localStorage.setItem("user",JSON.stringify(data.user));
 				window.location='/';
 			}

@@ -7,6 +7,7 @@ export default class Signup extends Component{
 			data:[],
 			user:JSON.parse(localStorage.getItem("user"))	
 		}	
+		console.log(this.state.user);
 	}
 	componentDidMount(){
 		const requestOptions = {
@@ -39,9 +40,9 @@ export default class Signup extends Component{
 				<div>
 					<h4>{this.state.user.name}</h4>
 					<div style={{display:"flex",justifyContent:"space-around",width:"108%"}}>
-						<h6>40 posts</h6>
-						<h6>40 followers</h6>
-						<h6>40 following </h6>
+						<h6>{this.state.data.length} posts</h6>
+						<h6>{this.state.user.followers.length} followers</h6>
+						<h6>{this.state.user.following.length} following </h6>
 					</div>
 				</div>
 			</div>

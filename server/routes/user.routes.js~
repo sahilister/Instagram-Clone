@@ -10,9 +10,7 @@ router.get('/',(req,res)=>{
 	res.send('hello');
 })
 
-router.get('/protected',(req,res)=>{
-	res.send('hello world');
-})
+
 
 router.post('/signup',(req,res)=>{
 	const {name,email,password}=req.body;
