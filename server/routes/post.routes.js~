@@ -55,7 +55,7 @@ router.put('/like',requireLogin, (req,res)=>{
 			return res.status(422).json({error:err})		
 		}	
 		else{
-			res.json(result)		
+			return res.json({posts:result})		
 		}
 	})
 })
@@ -66,9 +66,47 @@ router.put('/unlike',requireLogin, (req,res)=>{
 			return res.status(422).json({error:err})		
 		}	
 		else{
-			res.json(result)		
+			return res.json({posts:result})		
 		}
 	})
 })
+router.put('/comment',requireLogin, (req,res)=>{
+	const comment = {
+		text:req.body.text,
+		postedBy:req.user._id	
+	}
+	console.log(comment);
+	console.log(req.body.postId);
+	post.findByIdAndUpdate(req.body.postId,{$push:{comments:comment}},{new:true})
+	.populate("comments.postedBy","_id name")	
+	.exec((err,result)=>{
+		if(err){
+			return res.status(422).json({error:err})		
+		}	
+		else{
+			console.log(result);
+			return res.json({posts:result})		
+		}
+	})
+})
+router.delete('/deletepost/:postid',requireLogin,(req,res)=>{
+		post.findOne({_id:req.params.postid})
+		.populate("postedBy","_id")
+		.exec((err,post)=>{
+			console.log(err+" "+post);
+			if(err || !post){
+				return res.status(422).json({error:err});			
+			}		
+			if(post.postedBy._id.toString() === req.user._id.toString()){
+				post.remove()
+				.then(result=>{
+					res.json({result})				
+				})
+				.catch (err=>{
+						console.log(err);				
+				})
+		}})
+})
 
 module.exports = router;
+ 

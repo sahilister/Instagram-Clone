@@ -9,10 +9,10 @@ const {MONGOURI} = require('./keys');
 require('./models/user.model')
 app.use(express.json());
 console.log("server");
-app.use("/",'./routes/user.routes');
-app.use("/",'./routes/user1.routes');
-app.use("/",'./routes/post.routes');
-mongoose.connect(MONGOURI,{useNewUrlParser:true, useCreateIndex:true,useUnifiedTopology:true});
+app.use(require('./routes/user.routes'));
+app.use(require('./routes/post.routes'));
+app.use(require('./routes/user1.routes'));
+mongoose.connect(MONGOURI,{useNewUrlParser:true, useCreateIndex:true,useUnifiedTopology:true, useFindAndModify: false });
 const connection=mongoose.connection;
 connection.once('open',()=>{
 console.log('database successfully connected');

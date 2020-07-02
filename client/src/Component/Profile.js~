@@ -4,7 +4,6 @@ export default class Signup extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			l:props.l,
 			data:[],
 			user:JSON.parse(localStorage.getItem("user"))	
 		}	
@@ -31,7 +30,7 @@ export default class Signup extends Component{
 		})		
 	}
 	render(){
-		if(this.state.l){
+		if(this.props.l){
 		return <div style={{maxWidth:"1250px" ,margin:"0px auto"}}> 
 		<div style={{ display:"flex",justifyContent:"space-around",margin:"18px 0px",borderBottom:"2px solid grey"}}>
 				<div  >

@@ -39,7 +39,7 @@ export default class Signup extends Component{
 				<div>
 					<h4>{this.state.user.name}</h4>
 					<div style={{display:"flex",justifyContent:"space-around",width:"108%"}}>
-						<h6>40 posts</h6>
+						<h6>{this.state.data.length} posts</h6>
 						<h6>40 followers</h6>
 						<h6>40 following </h6>
 					</div>

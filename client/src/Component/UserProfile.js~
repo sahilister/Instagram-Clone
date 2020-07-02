@@ -4,18 +4,26 @@ export default class Signup extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			data:[],
-			user:JSON.parse(localStorage.getItem("user"))	
+			data:{
+				user:{
+				    email:"",
+				    name:""
+				},
+				post:[
+				
+				]				
+			},
+			user:JSON.parse(localStorage.getItem("user")),
+			id:window.location.pathname.split("/")[2]	
 		}	
-		console.log(window.location.pathname.split("/")[2]);
 	}
 	componentDidMount(){
 		const requestOptions = {
       				  method: 'GET',
       				  headers: { 'Content-Type': 'application/json',
-      				  "Authorization":"Bearer "+localStorage.getItem("jwt") }
+      				  "Authorization":"Bearer "+localStorage.getItem("jwt")}
    	 };
-		fetch(`http://localhost:5000/mypost`,requestOptions)
+		fetch(`http://localhost:5000/user/${this.state.id}`,requestOptions)
 		.then(res=>res.json())
 		.then(data=>{
 			if(data.error){
@@ -23,7 +31,7 @@ export default class Signup extends Component{
 			}	
 			else{
 				console.log(data);
-				this.setState({data:data.mypost});	
+				this.setState({data:data});
 			}
 		})
 		.catch(err=>{
@@ -38,16 +46,17 @@ export default class Signup extends Component{
 					<img style={{width:"160px", height:"160px", borderRadius:"80px"}} src="https://images.unsplash.com/photo-1485528562718-2ae1c8419ae2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
 				</div>
 				<div>
-					<h4>{this.state.user.name}</h4>
+					<h4>{this.state.data.user.name}</h4>
+					<h4>{this.state.data.user.email}</h4>
 					<div style={{display:"flex",justifyContent:"space-around",width:"108%"}}>
-						<h6>40 posts</h6>
+						<h6>{this.state.data.post.length} posts</h6>
 						<h6>40 followers</h6>
 						<h6>40 following </h6>
 					</div>
 				</div>
 			</div>
 			<div className="galary">
-				{this.state.data.map((item, id)=>{
+				{this.state.data.post.map((item, id)=>{
 					return <img key={id} className="item" src={item.photo} alt=""/>				
 				})}
 				</div>
