@@ -1,5 +1,13 @@
 import React,{Component} from 'react';
 import {Redirect} from 'react-router-dom';
+Array.prototype.remove = function(value) {
+	for (var i = this.length; i--; ) {
+		if (this[i] === value) {
+			this.splice(i, 1);
+		}
+	}
+}
+
 export default class Signup extends Component{
 	constructor(props){
 		super(props);
@@ -8,6 +16,7 @@ export default class Signup extends Component{
 				user:{
 				    email:"",
 				    name:"",
+				    url:"",
 				    followers:[],
 				    following:[]
 				},
@@ -16,7 +25,8 @@ export default class Signup extends Component{
 				]				
 			},
 			user:JSON.parse(localStorage.getItem("user")),
-			id:window.location.pathname.split("/")[2]	
+			id:window.location.pathname.split("/")[2],
+			f:true
 		}	
 		this.follow=this.follow.bind(this);
 		this.unfollow=this.unfollow.bind(this);
@@ -35,7 +45,8 @@ export default class Signup extends Component{
 			}	
 			else{
 				console.log(data);
-				console.log(this.state.id);
+				if(data.user.followers.includes(this.state.id))
+					this.state.f=false;
 				this.setState({data:data});
 			}
 		})
@@ -63,8 +74,9 @@ export default class Signup extends Component{
 				this.setState({data:dat});
 				var user=this.state.user;
 				user.following.push(this.state.id);
-				localStorage.setItem("user",JSON.stringify({name:user.name,email:user.email, _id:user._id, followers:user.followers, following:user.following}))
+				localStorage.setItem("user",JSON.stringify({name:user.name,email:user.email, _id:user._id, followers:user.followers, following:user.following,url:user.url}))
 				 // updating only data.user detail so that user can see detail of another user
+				 this.setState({f:true});
 			}
 		})
 		.catch(err=>{
@@ -89,8 +101,13 @@ export default class Signup extends Component{
 				var dat = this.state.data;
 				dat.user = data;
 				this.setState({data:dat}); // updating only data.user detail so that user can see detail of another user
-				//localStorage.setItem("user",JSON.stringify({_id:data._id,email:data.email,name:data.name,followers:data.followers,following:data.following}))
 				
+				var user=this.state.user;
+				user.following.remove(this.state.id);
+				console.log("user"+user);
+				//localStorage.setItem("user",JSON.stringify({_id:data._id,email:data.email,name:data.name,followers:data.followers,following:data.following}))
+				localStorage.setItem("user",JSON.stringify({name:user.name,email:user.email, _id:user._id, followers:user.followers, following:user.following,url:user.url}))
+				 this.setState({f:false});
 			}
 		})
 		.catch(err=>{
@@ -102,7 +119,7 @@ export default class Signup extends Component{
 		return <div style={{maxWidth:"1250px" ,margin:"0px auto"}}> 
 		<div style={{ display:"flex",justifyContent:"space-around",margin:"18px 0px",borderBottom:"2px solid grey"}}>
 				<div  >
-					<img style={{width:"160px", height:"160px", borderRadius:"80px"}} src="https://images.unsplash.com/photo-1485528562718-2ae1c8419ae2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
+					<img style={{width:"160px", height:"160px", borderRadius:"80px"}} src={this.state.data.user.url} alt=""/>
 				</div>
 				<div>
 					<h4>{this.state.data.user.name}</h4>
@@ -111,12 +128,12 @@ export default class Signup extends Component{
 						<h6>{this.state.data.post.length} posts</h6>
 						<h6>{this.state.data.user.followers.length} followers</h6>
 						<h6>{this.state.data.user.following.length} following </h6>
-						<button className="btn waves-effect waves-light #1e88e5 blue darken-1" type="submit" name="action" onClick={this.follow}>
+						{this.state.f===false?<button className="btn waves-effect waves-light #1e88e5 blue darken-1" type="submit" name="action" onClick={this.follow}>
     <i className=" right #1e88e5 blue darken-1">Follow</i>
-  </button>
+  </button>:
   <button className="btn waves-effect waves-light #1e88e5 blue darken-1" type="submit" name="action" onClick={this.unfollow}>
     <i className=" right #1e88e5 blue darken-1">Unfollow</i>
-  </button>
+  </button>}
 					</div>
 				</div>
 			</div>

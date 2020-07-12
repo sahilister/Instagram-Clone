@@ -34,3 +34,12 @@ a{
 	height:max-content;
 	margin: 26px auto;
 }
+
+#toast-container{
+	top:30px !important;
+	right:20px !important;
+	left:auto !important;
+}
+.meterial-icons:hover{
+	cursor:pointer;
+}

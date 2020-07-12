@@ -22,7 +22,7 @@ const postSchema = new mongoose.Schema({
 		type:ObjectId,
 		ref:"login"
 	}
-})
+},{timestamps:true})
 
 const post = mongoose.model("post",postSchema);
 

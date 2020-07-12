@@ -1,5 +1,5 @@
 const mongoose  = require('mongoose');
-const {ObjectId} = monogoose.Schema.Types;
+const {ObjectId} = mongoose.Schema.Types;
 const userSchema = new mongoose.Schema({
 
 	name:{
@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
 	},
 	password:{
 		type:String
+	},
+	url:{type:String,
+		default:"https://res.cloudinary.com/instagram-image/image/upload/v1593875442/bibvhfnwipocj7gz33y0.png"	
 	},
 	followers:[{type:ObjectId,ref:"login"}],
 	following:[{type:ObjectId,ref:"login"}]

@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
 	password:{
 		type:String
 	},
+	url:{type:String,
+		default:"https://res.cloudinary.com/instagram-image/image/upload/v1593875442/bibvhfnwipocj7gz33y0.png"	
+	},
+	resetToken:String,
+	expireToken:Date,	
 	followers:[{type:ObjectId,ref:"login"}],
 	following:[{type:ObjectId,ref:"login"}]
 })

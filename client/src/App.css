@@ -40,3 +40,9 @@ a{
 	right:20px !important;
 	left:auto !important;
 }
+.meterial-icons:hover{
+	cursor:pointer;
+}
+.collection-item{
+	width:100%;
+}

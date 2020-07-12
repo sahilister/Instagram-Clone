@@ -8,6 +8,9 @@ import Home from './Component/Home';
 import Profile from './Component/Profile';
 import CreatePost from './Component/createPost';
 import UserProfile from './Component/UserProfile';
+import Reset from './Component/reset';
+import Forgot from './Component/forgotpassword';
+import Myfollowers from './Component/SubscribeComponent';
 class App extends Component{
 	constructor(props){
 		super(props);	
@@ -35,6 +38,9 @@ class App extends Component{
       <Route exact path="/profile"><Profile l={this.state.l} change={this.change} change1={this.change1}/></Route>
       <Route exact path="/profile/:userid"><UserProfile l={this.state.l} change={this.change} change1={this.change1}/></Route>
       <Route exact path="/create"><CreatePost l={this.state.l} change={this.change} change1={this.change1}/></Route>	
+      <Route exact path="/mysubpost"><Myfollowers l={this.state.l} change={this.change} change1={this.change1}/></Route>
+      <Route exact path="/reset"><Reset/></Route>
+      <Route exact path="/reset/:token"><Forgot/></Route>
     </BrowserRouter>
     </div>
   );}
