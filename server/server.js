@@ -20,10 +20,10 @@ console.log('database successfully connected');
 connection.once('error',()=>{
 	console.log('An error occured');
 })
-if(process.env.NODE_ENV === 'production'){
+//if(process.env.NODE_ENV === 'production'){
 
 	app.use(express.static('./client/build'));
-}
+//}
 app.use(require('./routes/user.routes'));
 app.use(require('./routes/post.routes'));
 app.use(require('./routes/user1.routes'));
