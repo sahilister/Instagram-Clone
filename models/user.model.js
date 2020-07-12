@@ -1,0 +1,24 @@
+const mongoose  = require('mongoose');
+const {ObjectId} = mongoose.Schema.Types;
+const userSchema = new mongoose.Schema({
+
+	name:{
+		type:String
+	},
+	email:{
+		type:String
+	},
+	password:{
+		type:String
+	},
+	url:{type:String,
+		default:"https://res.cloudinary.com/instagram-image/image/upload/v1593875442/bibvhfnwipocj7gz33y0.png"	
+	},
+	resetToken:String,
+	expireToken:Date,	
+	followers:[{type:ObjectId,ref:"login"}],
+	following:[{type:ObjectId,ref:"login"}]
+})
+
+const user=mongoose.model('login',userSchema);
+module.exports=user;
