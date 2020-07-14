@@ -46,3 +46,13 @@ a{
 .collection-item{
 	width:100%;
 }
+.forgot{
+	display: flex;
+	flex-wrap:wrap;
+}
+.password{
+	margin:5px;
+}
+.search{
+	cursor:pointer;
+}

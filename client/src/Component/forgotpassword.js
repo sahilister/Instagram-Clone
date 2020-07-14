@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import {Link,Redirect} from 'react-router-dom';
 import M from 'materialize-css';
 
 // sendgrid api key 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

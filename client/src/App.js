@@ -24,7 +24,8 @@ class App extends Component{
 		this.setState({l:true});	
 	}
 	change1(){
-		this.setState({l:false});	
+		this.setState({l:false});
+		window.location = '/signin';	
 	}
   render(){
   	return (

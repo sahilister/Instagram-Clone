@@ -29,7 +29,7 @@ export default class Home extends Component{
 			}
 		})
 		.catch(err=>{
-			console.log(err);		
+			//console.log(err);		
 		})	
 	}
 	textChange(e){
@@ -58,12 +58,12 @@ export default class Home extends Component{
 							return item;
 						}
 				})
-				console.log(newData);
+				//console.log(newData);
 				this.setState({data:newData});
 			}
 		})
 		.catch(err=>{
-			console.log(err);		
+			//console.log(err);		
 		})	
 	}
 	
@@ -93,7 +93,7 @@ export default class Home extends Component{
 			}
 		})
 		.catch(err=>{
-			console.log(err);		
+			//console.log(err);		
 		})	
 	}
 	comment(id){
@@ -119,12 +119,12 @@ export default class Home extends Component{
 							return item;
 						}
 				})
-				console.log(newData);
+				//console.log(newData);
 				this.setState({data:newData});	
 			}
 		})
 		.catch(err=>{
-			console.log(err);		
+			//console.log(err);		
 		})	
 	}
 	deletepost(postid){
@@ -147,14 +147,14 @@ export default class Home extends Component{
 			}
 		})
 		.catch(err=>{
-			console.log(err);		
+			//console.log(err);		
 		})	
 	}
 	render(){
 		if(this.props.l){
 		return<div className="home">
 		{this.state.data.map((item,id)=>{return <div className="card home-card" key={id}>
-				<h5><Link to={item.postedBy._id==this.state.user._id?'/profile':'/profile/'+item.postedBy._id}>{item.postedBy.name}</Link>
+				<h5><Link to={item.postedBy._id === this.state.user._id?'/profile':'/profile/'+item.postedBy._id}>{item.postedBy.name}</Link>
 				{item.postedBy._id===this.state.user._id? <i className="material-icons" style={{float:"right"}} onClick={()=>{this.deletepost(item._id)}}>delete</i>:<div/>}
 				  </h5>
 				<div className="card-image">

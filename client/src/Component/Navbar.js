@@ -30,8 +30,7 @@ export default class Navbar extends Component{
 				this.setState({user:data.user});
 			}
 		})
-		.catch(err=>{
-			console.log(err);		
+		.catch(err=>{	
 		})		
 	}
 	componentDidMount(){
@@ -45,7 +44,7 @@ export default class Navbar extends Component{
     			<div className="nav-wrapper white">
       			<Link to="/" className="brand-logo left">Instagram</Link>
       			<ul id="nav-mobile" className="right hide-on-down">
-        		<li><i data-target="modal1" className="large material-icons modal-trigger" style={{color:"black"}}>search</i></li>
+        		<li><i data-target="modal1" className="search large material-icons modal-trigger" style={{color:"black"}}>search</i></li>
         		<li><Link to="/profile">Profile</Link></li>
       		<li><Link to="/create">Create Post</Link></li>
       		<li><Link to="mysubpost">My following </Link></li>

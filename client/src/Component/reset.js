@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import {Link,Redirect} from 'react-router-dom';
 import M from 'materialize-css';
 export default class Login extends Component{
 	constructor(props){

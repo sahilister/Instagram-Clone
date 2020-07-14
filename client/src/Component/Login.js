@@ -47,7 +47,7 @@ export default class Login extends Component{
 			}
 		})
 		.catch(err=>{
-			console.log(err);		
+			//console.log(err);		
 		})
 	}
 	}
@@ -58,13 +58,18 @@ export default class Login extends Component{
         <h2>Instagram</h2>
         <input type="text" placeholder="Email" value={this.state.email} onChange={this.emailchange}/>
         <input type="text" placeholder="Password" value={this.password} onChange={this.passwordchange}/>
-          <button className="btn waves-effect waves-light #1e88e5 blue darken-1" type="submit" name="action" onClick={this.submit}>
-    <i className=" right #1e88e5 blue darken-1">Login</i>
-  </button>
-    <h5>
-  <Link to="/signup">Don't have an account ?</Link>
-  </h5>
-  </div>
+        <div className="forgot">
+        	<span>
+        			<Link to = "/reset" className="password">forgot password ?</Link>
+        	</span>
+         <button className="btn waves-effect waves-light #1e88e5 blue darken-1" type="submit" name="action" onClick={this.submit}>
+    			<i className=" right #1e88e5 blue darken-1">Login</i>
+  			</button>
+  		</div>
+   	 <h5>
+  			<Link to="/signup">Don't have an account ?</Link>
+  		 </h5>
+     </div>
 		</div>
 	}
 	else{
