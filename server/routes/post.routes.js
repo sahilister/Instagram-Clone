@@ -8,7 +8,8 @@ const post = require('../models/post.model');
 router.get('/allpost',requireLogin,(req,res)=>{
 	console.log("all post");
     post.find()
-    .populate("postedBy","_id name")
+    .populate("postedBy","_id name url")
+    .populate("likes","_id name")
     .populate("comments.postedBy","_id name")
     .sort('-createdAt')
     .then((posts)=>{
@@ -22,7 +23,8 @@ router.get('/allpost',requireLogin,(req,res)=>{
 router.get('/mypost',requireLogin,(req,res)=>{
 	
     post.find({postedBy:req.user._id})
-    .populate("PostedBy","_id name")
+    .populate("PostedBy","_id name url")
+    .populate("likes","_id name")
     .sort('-createdAt')
     .then(mypost=>{
         res.json({mypost})
@@ -34,7 +36,8 @@ router.get('/mypost',requireLogin,(req,res)=>{
 router.get('/getsubpost',requireLogin,(req,res)=>{
 
     post.find({postedBy:{$in:req.user.following}})
-    .populate("postedBy","_id name")
+    .populate("postedBy","_id name url")
+    .populate("likes","_id name")
     .populate("comments.postedBy","_id name")
     .sort('-createdAt')
     .then(posts=>{
@@ -65,6 +68,10 @@ router.post('/createpost',requireLogin, (req,res)=>{
 
 router.put('/like',requireLogin, (req,res)=>{
 	post.findByIdAndUpdate(req.body.postId,{$push:{likes:req.user._id}},{new:true})
+	.populate("postedBy","_id name url")
+	.populate("likes","_id name")
+   .populate("comments.postedBy","_id name")
+   .sort('-createdAt')
 	.exec((err,result)=>{
 		if(err){
 			return res.status(422).json({error:err})		
@@ -76,6 +83,10 @@ router.put('/like',requireLogin, (req,res)=>{
 })
 router.put('/unlike',requireLogin, (req,res)=>{
 	post.findByIdAndUpdate(req.body.postId,{$pull:{likes:req.user._id}},{new:true})
+	.populate("postedBy","_id name url")
+	.populate("likes","_id name")
+   .populate("comments.postedBy","_id name")
+   .sort('-createdAt')
 	.exec((err,result)=>{
 		if(err){
 			return res.status(422).json({error:err})		
@@ -93,7 +104,10 @@ router.put('/comment',requireLogin, (req,res)=>{
 	console.log(comment);
 	console.log(req.body.postId);
 	post.findByIdAndUpdate(req.body.postId,{$push:{comments:comment}},{new:true})
-	.populate("comments.postedBy","_id name")	
+	.populate("postedBy","_id name url")
+	.populate("likes","_id name")
+   .populate("comments.postedBy","_id name")
+   .sort('-createdAt')
 	.exec((err,result)=>{
 		if(err){
 			return res.status(422).json({error:err})		

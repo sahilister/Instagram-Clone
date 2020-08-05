@@ -74,7 +74,7 @@ export default class Navbar extends Component{
   				</ul>
  			 </div>
     			</div>
-    			  <div id="modal1" className="modal" style={{color:"black"}}>
+    			  <div id="modal2" className="modal" style={{color:"black"}}>
     				<div className="modal-content">
       					<input type="text" placeholder="Search User" value={this.state.search} onChange={this.search}/>
     						<ul className="collection">

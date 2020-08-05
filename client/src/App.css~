@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 a{
 	color:black !important;
-	
 }
 
 .brand-logo, h2{
@@ -20,10 +19,7 @@ a{
      border-bottom: 1px solid #1976d2 !important;
      box-shadow: 0 1px 0 0 #1976d2 !important;
    }
- .head-card{
-	display:flex;
-	flex-direction:row; 
- }  
+   
 .galary{
 	display: flex;
 	flex-wrap:wrap;

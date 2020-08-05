@@ -198,7 +198,7 @@ export default class Home extends Component{
 					<img style={{width:"30px", height:"30px", borderRadius:"15px", marginRight:"10px",marginTop:"8px",marginLeft:"6px"}} src={this.state.user.url} alt=""/>
 					<Link to={item.postedBy._id === this.state.user._id?'/profile':'/profile/'+item.postedBy._id} style={{fontSize:"30px"}}>{item.postedBy.name}</Link>
 					
-				<span >{item.postedBy._id===this.state.user._id? <i className="material-icons" style={{float:"right"}} onClick={()=>{this.deletepost(item._id)}}>delete</i>:<div/>}
+				<span >{item.postedBy._id===this.state.user._id? <i className="material-icons" style={{float:"right"}} onClick={()=>{this.deletepost(item._id)}}>more_vert</i>:<div/>}
 		</span>	</div>
 				<div className="card-image">
 					<img src={item.photo} alt=""/>
