@@ -25,11 +25,13 @@ router.post('/signup',(req,res)=>{
 	if(!email || !password || !name){
 		return res.status(422).json({error:"please add all the field"})
 	}
+	else{
 	User.findOne({email:email})
 	.then((savedUser)=>{
 		if(savedUser){
 			return res.status(422).json({error:'User already exist'});
 		}
+		else{
 		bcrypt.hash(password,13)
 			.then(hashedpassword=>{
 				const user=!req.body.url?user = new User({email,password:hashedpassword,name}): user = new User({email,password:hashedpassword,name,url:req.body.url});
@@ -42,7 +44,7 @@ router.post('/signup',(req,res)=>{
 					html:"<h1>Welcome to insta</h2>"				
 				})
 				.then(()=>{
-				res.json({message:"Saved successfully"});
+				return res.json({message:"Saved successfully"});
 				})
 				.catch(err=>{
 				console.log(err);
@@ -53,11 +55,13 @@ router.post('/signup',(req,res)=>{
 					console.log(err);
 			})
 		})
+		}
 		
 	})
 	.catch((err)=>{
 		console.log(err);
 	})
+	}
 })
 
 router.put('/uploadpic',requireLogin,(req,res)=>{
