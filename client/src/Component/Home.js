@@ -28,7 +28,7 @@ export default class Home extends Component{
 		.then(res=>res.json())
 		.then(data=>{
 			if(data.error){
-				//M.toast({html: data.error,classes:'#c62828 red darken-3'})			
+				M.toast({html: data.error,classes:'#c62828 red darken-3'})			
 			}	
 			else{
 				this.setState({data:data.posts});	
