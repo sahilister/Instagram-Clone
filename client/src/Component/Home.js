@@ -31,6 +31,7 @@ export default class Home extends Component{
 				M.toast({html: data.error,classes:'#c62828 red darken-3'})			
 			}	
 			else{
+				console.log(data.posts);
 				this.setState({data:data.posts});	
 			}
 		})
@@ -68,6 +69,7 @@ export default class Home extends Component{
 							return item;
 						}
 				})
+				console.log(newData);
 				this.setState({data:newData});
 			}
 		})
@@ -179,7 +181,6 @@ export default class Home extends Component{
     				</div>
  			 	</div>
  			 	<div id="modal3" className="modal" style={{color:"black"}}>
-					{console.log(this.state.item)}
     				<div className="modal-content">
     				<h4>Commented By</h4>
       				<ul>{
@@ -195,7 +196,7 @@ export default class Home extends Component{
  			 	</div>
 		{this.state.data.map((item,id)=>{return <div className="card home-card" key={id}>
 				<div>
-					<img style={{width:"30px", height:"30px", borderRadius:"15px", marginRight:"10px",marginTop:"8px",marginLeft:"6px"}} src={this.state.user.url} alt=""/>
+					<img style={{width:"30px", height:"30px", borderRadius:"15px", marginRight:"10px",marginTop:"8px",marginLeft:"6px"}} src={item.postedBy.url} alt=""/>
 					<Link to={item.postedBy._id === this.state.user._id?'/profile':'/profile/'+item.postedBy._id} style={{fontSize:"30px"}}>{item.postedBy.name}</Link>
 					
 				<span >{item.postedBy._id===this.state.user._id? <i className="material-icons" style={{float:"right"}} onClick={()=>{this.deletepost(item._id)}}>delete</i>:<div/>}
@@ -205,7 +206,7 @@ export default class Home extends Component{
 				</div>
 				<div className="card-content">
 				  <i className="material-icons" style={{color:"red"}}>favorite</i>
-				  {item.likes.includes(this.state.user._id)?<i className="material-icons" onClick={()=>{this.unlike(item._id)}}>thumb_down</i>:
+				  {item.likes.some(id=> id._id === this.state.user._id)?<i className="material-icons" onClick={()=>{this.unlike(item._id)}}>thumb_down</i>:
 				  <i className="material-icons" onClick={()=>{this.like(item._id)}}>thumb_up</i>
 				  }
 				  <br/>

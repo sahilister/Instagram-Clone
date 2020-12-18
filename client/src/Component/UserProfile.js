@@ -46,7 +46,7 @@ export default class Signup extends Component{
 			else{
 				console.log(data);
 				if(data.user.followers.includes(this.state.id))
-					this.state.f=false;
+					this.setState({f:false});
 				this.setState({data:data});
 			}
 		})
