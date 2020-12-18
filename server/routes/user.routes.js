@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'sahilgarg99912@gmail.com',
-    pass: 'sahil@1234' // naturally, replace both with your real credentials or an application-specific password
+    pass: '1234@sahil' // naturally, replace both with your real credentials or an application-specific password
   }
 });
 
@@ -41,7 +41,13 @@ router.post('/signup',(req,res)=>{
 					subject:'Sign up successfully',
 					html:"<h1>Welcome to insta</h2>"				
 				})
+				.then(()=>{
 				res.json({message:"Saved successfully"});
+				})
+				.catch(err=>{
+				console.log(err);
+					res.status(500).json({message:"An error occured"});
+				})
 			})
 			.catch(err=>{
 					console.log(err);
@@ -72,9 +78,11 @@ router.post('/signin',(req,res)=>{
 	}
 	User.findOne({email:email})
 	.then(savedUser=>{
+		console.log(savedUser);
 		if(!savedUser){
 			return res.status(422).json({error:"Invalid Email or password"});
 		}
+		else{
 		bcrypt.compare(password, savedUser.password)
 		.then((match)=>{
 			if(match){
@@ -87,7 +95,9 @@ router.post('/signin',(req,res)=>{
 		})
 		.catch(err=>{
 			console.log(err);
+			return res.status(500).json({error:"Internal server error"});
 		})
+		}
 	})
 })
 router.post('/resetpassword',(req,res)=>{
@@ -111,7 +121,12 @@ router.post('/resetpassword',(req,res)=>{
 							<h5>Click on this <a href="http://localhost:3000/reset/${token}">link</a> to reset</h5></div>
 							`
 					})
-					res.json({message:"Check your email"});			
+					.then(resul=>{
+					res.json({message:"Check your email"});			})
+					.catch(err=>{
+					console.log(err);
+						res.status(500).json({message:"An error occured"});
+					})
 			})
 		})	
 	})
